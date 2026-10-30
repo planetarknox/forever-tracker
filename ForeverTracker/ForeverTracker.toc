@@ -3,7 +3,8 @@
 #   /dump select(4, GetBuildInfo())
 ## Interface: 00000
 ## Title: ForeverTracker
-## Notes: Says hello in chat when you log in.
-## Version: 0.1.0
+## Notes: Records corpses you loot and shows your drops when you hover a mob.
+## Version: 0.2.0
+## SavedVariables: ForeverTrackerDB
 
 ForeverTracker.lua
