@@ -3,8 +3,11 @@
 #   /dump select(4, GetBuildInfo())
 ## Interface: 00000
 ## Title: Camping Notes
-## Notes: A personal loot-drop notebook. Sharing notes with other players comes later; sharing is not built yet.
-## Version: 0.2.1
+## Notes: A personal loot-drop notebook. Tyrion the corgi appears near a campfire. Sharing notes with other players comes later; sharing is not built yet.
+## Version: 0.3.0
 ## SavedVariables: CampingNotesDB
 
-CampingNotes.lua
+Core.lua
+Loot.lua
+UI.lua
+Bestiary.lua
