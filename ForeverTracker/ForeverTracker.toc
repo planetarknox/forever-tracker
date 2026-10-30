@@ -1,0 +1,9 @@
+# PLACEHOLDER: 00000 is not a real interface number. This addon will not load
+# until you replace it with the number printed by this command in-game:
+#   /dump select(4, GetBuildInfo())
+## Interface: 00000
+## Title: ForeverTracker
+## Notes: Says hello in chat when you log in.
+## Version: 0.1.0
+
+ForeverTracker.lua
