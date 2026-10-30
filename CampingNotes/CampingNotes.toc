@@ -1,0 +1,13 @@
+# PLACEHOLDER: 00000 is not a real interface number. This addon will not load
+# until you replace it with the number printed by this command in-game:
+#   /dump select(4, GetBuildInfo())
+## Interface: 00000
+## Title: Camping Notes
+## Notes: A personal loot-drop notebook. Tyrion the corgi appears near a campfire. Sharing notes with other players comes later; sharing is not built yet.
+## Version: 0.3.0
+## SavedVariables: CampingNotesDB
+
+Core.lua
+Loot.lua
+UI.lua
+Bestiary.lua
