@@ -2,9 +2,9 @@
 # until you replace it with the number printed by this command in-game:
 #   /dump select(4, GetBuildInfo())
 ## Interface: 00000
-## Title: ForeverTracker
-## Notes: Records corpses you loot and shows your drops when you hover a mob.
-## Version: 0.2.0
-## SavedVariables: ForeverTrackerDB
+## Title: Camping Notes
+## Notes: A personal loot-drop notebook. Sharing notes with other players comes later; sharing is not built yet.
+## Version: 0.2.1
+## SavedVariables: CampingNotesDB
 
-ForeverTracker.lua
+CampingNotes.lua

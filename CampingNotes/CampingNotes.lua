@@ -1,9 +1,11 @@
--- ForeverTracker
+-- Camping Notes
 --
--- On login, prints one hello line in chat.
+-- A personal loot-drop notebook. On login, prints one hello line in chat.
 -- After that, remembers corpses you loot. Hover a mob to see the five
 -- items that showed up most often in your own loot windows, with the
 -- percent of loots that contained each one.
+-- Sharing these notes with other players is the later goal. Nothing
+-- here sends data to anyone else yet.
 
 -- A frame is a small object the game gives us. Frames usually draw
 -- buttons and windows. This one stays invisible and listens for news.
@@ -11,8 +13,8 @@
 local frame = CreateFrame("Frame")
 
 -- SavedVariables is how the game remembers a global table between
--- sessions. The .toc line "## SavedVariables: ForeverTrackerDB" means:
--- when you log out, save the global table named ForeverTrackerDB, and
+-- sessions. The .toc line "## SavedVariables: CampingNotesDB" means:
+-- when you log out, save the global table named CampingNotesDB, and
 -- put it back before firing ADDON_LOADED for this addon.
 --
 -- On a brand new install that global is nil. Indexing nil is an error,
@@ -35,13 +37,13 @@ local function Say(text)
 end
 
 local function EnsureDB()
-    if type(ForeverTrackerDB) ~= "table" then
-        ForeverTrackerDB = {}
+    if type(CampingNotesDB) ~= "table" then
+        CampingNotesDB = {}
     end
-    if type(ForeverTrackerDB.mobs) ~= "table" then
-        ForeverTrackerDB.mobs = {}
+    if type(CampingNotesDB.mobs) ~= "table" then
+        CampingNotesDB.mobs = {}
     end
-    return ForeverTrackerDB
+    return CampingNotesDB
 end
 
 -- ============================================================
@@ -273,8 +275,8 @@ local function AddDropLines(tooltip, unitFromHook)
     end
 
     local mob = nil
-    if savedReady and type(ForeverTrackerDB) == "table" and type(ForeverTrackerDB.mobs) == "table" then
-        mob = ForeverTrackerDB.mobs[key]
+    if savedReady and type(CampingNotesDB) == "table" and type(CampingNotesDB.mobs) == "table" then
+        mob = CampingNotesDB.mobs[key]
     end
     if type(mob) ~= "table" or type(mob.loots) ~= "number" or mob.loots <= 0 then
         tooltip:AddLine("no loot data yet", 0.5, 0.5, 0.5)
@@ -372,8 +374,8 @@ end
 -- the text to other people. Whatever you type after the command is
 -- the message. We care about an empty message, or the word "reset".
 --
--- SLASH_FOREVERTRACKER1 and SlashCmdList["FOREVERTRACKER"] must use
--- the same id. The id is not shown in chat. The player types /ftrack.
+-- SLASH_CAMPINGNOTES1 and SlashCmdList["CAMPINGNOTES"] must use
+-- the same id. The id is not shown in chat. The player types /camp.
 
 local function Trim(text)
     text = string.gsub(text or "", "^%s+", "")
@@ -385,20 +387,20 @@ local function OnSlash(message)
     local text = string.lower(Trim(message))
     if text == "reset" then
         if not savedReady then
-            Say("ForeverTracker is not ready yet.")
+            Say("Camping Notes is not ready yet.")
             return
         end
         EnsureDB()
-        ForeverTrackerDB.mobs = {}
+        CampingNotesDB.mobs = {}
         countedThisTarget = false
-        Say("ForeverTracker: all loot data cleared.")
+        Say("Camping Notes: all loot data cleared.")
         return
     end
-    Say("ForeverTracker: /ftrack shows this help. /ftrack reset erases every recorded loot.")
+    Say("Camping Notes: /camp shows this help. /camp reset erases every recorded loot.")
 end
 
-SLASH_FOREVERTRACKER1 = "/ftrack"
-SlashCmdList["FOREVERTRACKER"] = OnSlash
+SLASH_CAMPINGNOTES1 = "/camp"
+SlashCmdList["CAMPINGNOTES"] = OnSlash
 
 -- ============================================================
 -- Events
@@ -410,7 +412,9 @@ SlashCmdList["FOREVERTRACKER"] = OnSlash
 --
 -- ADDON_LOADED fires once per addon, after that addon's saved
 -- variables are restored. The first argument is the addon folder
--- name. We ignore every name except ForeverTracker.
+-- name. We ignore every name except CampingNotes. The folder name
+-- is CampingNotes, with no space. The title players see is
+-- "Camping Notes".
 -- PLAYER_LOGIN fires once after you enter the world. Chat exists, so
 -- the hello line can be seen.
 -- LOOT_OPENED fires when a loot window opens.
@@ -433,7 +437,7 @@ local function ReadEvent(p1, p2, p3)
 end
 
 local function OnAddonLoaded(addonName)
-    if addonName ~= "ForeverTracker" then
+    if addonName ~= "CampingNotes" then
         return
     end
     EnsureDB()
@@ -441,7 +445,7 @@ local function OnAddonLoaded(addonName)
 end
 
 local function OnPlayerLogin()
-    Say("ForeverTracker loaded! hello, adventurer.")
+    Say("Camping Notes loaded! hello, adventurer.")
 end
 
 local function OnEvent(p1, p2, p3)
